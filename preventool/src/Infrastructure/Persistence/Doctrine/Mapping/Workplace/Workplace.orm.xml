@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="Preventool\Domain\Workplace\Model\Workplace" table="workplace">
+        <id name="id" type="guid"/>
+        <field name="name" length="100" />
+        <field name="contactPhone" length="20" />
+        <field name="address" length="200" />
+        <field name="numberOfWorkers" type="integer" />
+
+        <field name="active" type="boolean">
+            <options>
+                <option name="default">true</option>
+            </options>
+        </field>
+
+        <many-to-one field="company" target-entity="Preventool\Domain\Company\Model\Company" >
+            <join-column name="company_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin" >
+            <join-column name="creator_admin_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="updaterAdmin" target-entity="Preventool\Domain\Admin\Model\Admin">
+            <join-column name="updater_admin_id" referenced-column-name="id" />
+        </many-to-one>
+
+
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+        <field name="deletedAt" type="datetime_immutable" nullable="true" />
+
+        <gedmo:soft-deleteable field-name="deletedAt"/>
+
+        <unique-constraints>
+            <unique-constraint name="U_name_workplace_company" columns="name,company_id"/>
+        </unique-constraints>
+
+        <indexes>
+            <index name="IDX_workplace_company" columns="company_id"/>
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>

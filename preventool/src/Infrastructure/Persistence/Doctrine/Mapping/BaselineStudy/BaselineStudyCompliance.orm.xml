@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="Preventool\Domain\BaselineStudy\Model\BaselineStudyCompliance" table="baseline_study_compliance">
+        <id name="id" type="guid"/>
+
+        <field name="totalCompliance" type="integer"/>
+        <field name="compromisoCompliance" type="integer"/>
+        <field name="politicaCompliance" type="integer"/>
+        <field name="planeamientoCompliance" type="integer"/>
+        <field name="implementacionCompliance" type="integer"/>
+        <field name="evaluacionCompliance" type="integer"/>
+        <field name="verificacionCompliance" type="integer"/>
+        <field name="controlCompliance" type="integer"/>
+        <field name="revisionCompliance" type="integer"/>
+
+
+        <many-to-one field="workplace" target-entity="Preventool\Domain\Workplace\Model\Workplace" >
+            <join-column name="workplace_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin" >
+            <join-column name="creator_admin_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="updaterAdmin" target-entity="Preventool\Domain\Admin\Model\Admin">
+            <join-column name="updater_admin_id" referenced-column-name="id" />
+        </many-to-one>
+
+
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+        <field name="deletedAt" type="datetime_immutable" nullable="true" />
+
+        <gedmo:soft-deleteable field-name="deletedAt"/>
+
+        <unique-constraints>
+            <unique-constraint name="U_blc_workplace" columns="workplace_id"/>
+        </unique-constraints>
+
+        <indexes>
+            <index name="IDX_blc_workplace" columns="workplace_id"/>
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="Preventool\Domain\Company\Model\HealthAndSafetyPolicy" table="health_and_safety_policy">
+        <id name="id" type="guid"/>
+        <field name="status" length="50" />
+        <field name="documentResource" length="200" nullable="true" />
+
+        <field name="active" type="boolean">
+            <options>
+                <option name="default">true</option>
+            </options>
+        </field>
+
+        <many-to-one field="company" target-entity="Preventool\Domain\Company\Model\Company" >
+            <join-column name="company_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="approvedAdmin" target-entity="Preventool\Domain\Admin\Model\Admin" >
+            <join-column name="approved_admin_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="creatorAdmin" target-entity="Preventool\Domain\Admin\Model\Admin" >
+            <join-column name="creator_admin_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="updaterAdmin" target-entity="Preventool\Domain\Admin\Model\Admin">
+            <join-column name="updater_admin_id" referenced-column-name="id" />
+        </many-to-one>
+
+
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+        <field name="deletedAt" type="datetime_immutable" nullable="true" />
+
+        <gedmo:soft-deleteable field-name="deletedAt"/>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>

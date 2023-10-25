@@ -1,0 +1,88 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+
+imports:
+    - { resource: services/aliases.yaml }
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        bind:
+            $defaultSender: '%env(resolve:MAILER_DEFAULT_SENDER)%'
+            $projectDigitalOceanStoragePath: '%env(resolve:PROJECT_PATH)%'
+
+    App\Controller\:
+        resource: '../web/Controller/'
+        tags: [ 'controller.service_arguments' ]
+
+    Preventool\:
+        resource: '../src/'
+        exclude:
+#            - '../src/DependencyInjection/'
+#            - '../src/Entity/'
+#            - '../src/Kernel.php'
+
+    #Domain
+    #Bus
+    _instanceof:
+        Preventool\Domain\Shared\Bus\Command\CommandHandler:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
+        Preventool\Domain\Shared\Bus\Query\QueryHandler:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
+
+        Preventool\Domain\Shared\Bus\DomainEvent\DomainEventHandler:
+            tags:
+                - { name: messenger.message_handler, bus: domain.event.bus }
+
+        Preventool\Domain\Shared\Bus\Message\MessageHandler:
+            tags:
+                - { name: messenger.message_handler, bus: message.bus }
+
+    #Infrastructure
+
+    #Infrastructure Services
+    app.images.s3:
+        class: Aws\S3\S3Client
+        arguments:
+            - version: '%env(resolve:VERSION)%'
+              region: '%env(resolve:REGION)%'
+              endpoint: '%env(resolve:ENDPOINT)%'
+              credentials:
+                  key: '%env(resolve:KEY)%'
+                  secret: '%env(resolve:SECRET)%'
+
+
+    #Listener
+
+    #Framework
+    Preventool\Infrastructure\Ui\Http\Listener\Shared\JsonTransformerExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
+    #Doctrine
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    #Security Listener
+    Preventool\Infrastructure\Security\Listener\JWTCreatedListener:
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+    Preventool\Infrastructure\Security\Listener\JWTAuthenticatedListener:
+        arguments: [ '@request_stack' ]
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_authenticated, method: onJWTAuthenticated }

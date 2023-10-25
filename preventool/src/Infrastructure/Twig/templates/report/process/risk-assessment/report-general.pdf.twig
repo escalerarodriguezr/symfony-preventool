@@ -1,0 +1,252 @@
+{% extends 'report/shared/base.pdf.twig' %}
+
+
+{% block body %}
+    <div>
+        <h1 style="text-align: center"
+        >Evaluación de riesgos de proceso</h1>
+
+        {# DATOS DEL PROCESO       #}
+        <h1 style="margin-top: 8mm;">1.-Datos del Proceso</h1>
+        <div style="
+            margin-left: 10mm;
+        ">
+            <div><b>Nombre</b></div>
+            <div style="margin: 5mm;"
+            >{{ processName }}</div>
+
+            <div><b>Descripcion</b></div>
+            <div style="margin: 5mm;"
+            >{{ processDescription | raw }}</div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+        {# DATOS DE LA ACTIVIDAD      #}
+        <h1 style="margin-top: 8mm;">2.-Actividades del proceso</h1>
+
+        {% for activity in activities %}
+            <div style="margin-left: 10mm;">
+                <h2>2.{{ loop.index }}.-{{ activity.getName.value }}</h2>
+                <div style="margin: 5mm">
+                    <h2>2.{{ loop.index }}.1.-Descripción</h2>
+                    <div style="margin: 5mm;"
+                    >
+                        {% if activity.getDescription %}{{ activity.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}
+                    </div>
+
+                </div>
+
+                <div style="margin: 5mm">
+                    <h2>2.{{ loop.index }}.2.-Tareas</h2>
+                    <div style="margin: 5mm;"
+                    >
+                        {% set activityIndex = loop.index %}
+                        {% for task in activity.getActivityTasks %}
+
+                            <div style="margin: 5mm">
+                                <h2>2.{{ activityIndex }}.2.{{ loop.index }}.-{{ task.getName.value }}</h2>
+                                <div style="margin: 5mm;"
+                                >
+                                    <h2>2.{{ activityIndex }}.2.{{ loop.index }}.1.-Descripción</h2>
+                                    <div style="margin: 5mm;"
+                                    >
+                                        {% if task.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}
+                                    </div>
+
+
+
+
+
+
+                                    <h2>2.{{ activityIndex }}.2.{{ loop.index }}.2.-Riesgos</h2>
+                                    <div style="margin: 5mm;"
+                                    >
+                                        {% set taskIndex = loop.index %}
+                                        {% for hazard in task.getTaskHazards %}
+
+                                            <h2>2.{{ activityIndex }}.2.{{ taskIndex }}.2.{{ loop.index }}.-{{ hazard.getTaskRisk.getName.value }}</h2>
+
+                                            <div style="margin: 5mm">
+                                                <h3>Categoría de Peligro</h3>
+                                                <div style="margin: 5mm;"
+                                                >
+                                                    {{ hazard.getHazardCategoryName.value }}
+
+{#                                                    {% if hazard.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}#}
+                                                </div>
+
+                                                <h3>Peligro</h3>
+                                                <div style="margin: 5mm;"
+                                                >
+                                                    {{ hazard.getHazardName.value }}
+
+                                                    {#                                                    {% if hazard.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}#}
+                                                </div>
+
+                                                <h3>Estado</h3>
+                                                <div style="margin: 5mm;"
+                                                >
+                                                    {{ hazard.getTaskRisk.getStatus.description }}
+
+                                                </div>
+
+
+                                                {% if hazard.getTaskRisk.getStatus.value != 'PENDING-ASSESSMENT' %}
+
+                                                   <h2>Evaluación Método IPERC</h2>
+                                                    <div style="margin: 5mm">
+                                                        <h3>Estado</h3>
+                                                        <div style="margin: 5mm;"
+                                                        >
+                                                            {{ hazard.getTaskRisk.getTaskRiskAssessment.getStatus.description }}
+
+                                                            {#                                                    {% if hazard.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}#}
+                                                        </div>
+
+                                                        <h3>Indice de Probabilidad</h3>
+                                                        <div style="margin: 5mm;"
+                                                        >
+                                                            <h3>Indice de severidad</h3>
+                                                            <div style="margin: 5mm;"
+                                                            >
+                                                                <table style="border-collapse: collapse;">
+                                                                    <thead style="display: table-header-group;">
+                                                                    <tr style="page-break-inside: avoid;">
+                                                                        <th style="border: 1px solid black; padding: 8px; width: 30%;">Índice</th>
+                                                                        <th style="border: 1px solid black; padding: 8px; width: 50%;">Descripción</th>
+                                                                        <th style="border: 1px solid black; padding: 8px; width: 20%;">Valor</th>
+
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr style="page-break-inside: avoid;">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Personas Expuestas (A)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getPeopleExposedIndex.description }}</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getPeopleExposedIndex.value }}</td>
+                                                                    </tr>
+                                                                    <tr style="page-break-inside: avoid;">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Procedimiento (B)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getProcedureIndex.description }}</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getProcedureIndex.value }}</td>
+                                                                    </tr>
+                                                                    <tr style="page-break-inside: avoid;">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Capacitación (C)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getTrainingIndex.description }}</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getTrainingIndex.value }}</td>
+                                                                    </tr>
+                                                                    <tr style="page-break-inside: avoid;">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Exposición al riesgo (D)</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getExposureIndex.description }}</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getExposureIndex.value }}</td>
+                                                                    </tr>
+
+                                                                    <tr style="page-break-inside: avoid; background-color: #f2f1f4">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Indice de Probabilidad</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">A+B+C+D</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">8</td>
+                                                                    </tr>
+                                                                    <tr style="page-break-inside: avoid; background-color: #f2f1f4">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;">Indice de Severidad</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getSeverityIndex.description }}</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getSeverityIndex.value }}</td>
+                                                                    </tr>
+
+                                                                    <tr style="page-break-inside: avoid; background-color: #f2f1f4">
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 30%;"><b>RIESGO</b></td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 50%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getRiskLevelIndex.description }}</td>
+                                                                        <td style="border: 1px solid black; padding: 8px; width: 20%;">{{ hazard.getTaskRisk.getTaskRiskAssessment.getRiskLevelIndex.value }}</td>
+                                                                    </tr>
+
+                                                                    </tbody>
+                                                                </table>
+
+
+                                                            </div>
+
+                                                            {#                                                    {% if hazard.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}#}
+                                                        </div>
+
+{#                                                        <h3>Indice de severidad</h3>#}
+{#                                                        <div style="margin: 5mm;"#}
+{#                                                        >#}
+{#                                                            {{ hazard.getTaskRisk.getTaskRiskAssessment.getSeverityIndex.value }}#}
+
+{#                                                            #}{#                                                    {% if hazard.getDescription %}{{ task.getDescription.decodeValue | raw }}{% else %}{{ "" }}{% endif %}#}
+{#                                                        </div>#}
+
+                                                    </div>
+
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        {% endfor %}
+
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+{% endblock %}

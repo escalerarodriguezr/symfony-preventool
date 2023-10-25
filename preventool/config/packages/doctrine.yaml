@@ -1,0 +1,149 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+
+        types:
+            date: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateType
+            date_immutable: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateImmutableType
+            datetime: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateTimeType
+            datetime_immutable: Preventool\Infrastructure\Persistence\Doctrine\Dbal\Types\UTCDateTimeImmutableType
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+
+        # Doctrine Extensions Filters
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+
+        mappings:
+            Preventool\Domain\Demo\Model\Demo:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Demo'
+                prefix: 'Preventool\Domain\Demo\Model'
+                alias: Preventool\Domain\Demo\Model\Demo
+            Preventool\Domain\User\Model\User:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/User'
+                prefix: 'Preventool\Domain\User\Model'
+                alias: Preventool\Domain\User\Model\User
+            Preventool\Domain\Admin\Model\Admin:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Admin'
+                prefix: 'Preventool\Domain\Admin\Model'
+                alias: Preventool\Domain\Admin\Model\Admin
+            Preventool\Domain\Company\Model\Company:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Company'
+                prefix: 'Preventool\Domain\Company\Model'
+                alias: Preventool\Domain\Company\Model\Company
+            Preventool\Domain\Workplace\Model\Workplace:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Workplace'
+                prefix: 'Preventool\Domain\Workplace\Model'
+                alias: Preventool\Domain\Workplace\Model\Workplace
+            Preventool\Domain\Company\Model\HealthAndSafetyPolicy:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Company'
+                prefix: 'Preventool\Domain\Company\Model'
+                alias: Preventool\Domain\Company\Model\HealthAndSafetyPolicy
+            Preventool\Domain\AuditType\Model\AuditType:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Audit'
+                prefix: 'Preventool\Domain\Audit\Model'
+                alias: Preventool\Domain\Audit\Model\Audit
+            Preventool\Domain\BaselineStudy\Model\BaselineStudy:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/BaselineStudy'
+                prefix: 'Preventool\Domain\BaselineStudy\Model'
+                alias: Preventool\Domain\BaselineStudy\Model\BaselineStudy
+            Preventool\Domain\BaselineStudy\Model\BaselineStudyCompliance:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/BaselineStudy'
+                prefix: 'Preventool\Domain\BaselineStudy\Model'
+                alias: Preventool\Domain\BaselineStudy\Model\BaselineStudyCompliance
+            Preventool\Domain\Process\Model\Process:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Process'
+                prefix: 'Preventool\Domain\Process\Model'
+                alias: Preventool\Domain\Process\Model\Process
+            Preventool\Domain\Process\Model\ProcessActivity:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Process'
+                prefix: 'Preventool\Domain\Process\Model'
+                alias: Preventool\Domain\Process\Model\Process
+            Preventool\Domain\Process\Model\ProcessActivityTask:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/Process'
+                prefix: 'Preventool\Domain\Process\Model'
+                alias: Preventool\Domain\Process\Model\ProcessActivityTask
+            Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/WorkplaceHazard'
+                prefix: 'Preventool\Domain\WorkplaceHazard\Model'
+                alias: Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazardCategory
+            Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/WorkplaceHazard'
+                prefix: 'Preventool\Domain\WorkplaceHazard\Model'
+                alias: Preventool\Domain\WorkplaceHazard\Model\WorkplaceHazard
+            Preventool\Domain\OccupationalRisk\Model\TaskHazard:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/OccupationalRisk'
+                prefix: 'Preventool\Domain\OccupationalRisk\Model'
+                alias: Preventool\Domain\OccupationalRisk\Model\TaskHazard
+            Preventool\Domain\OccupationalRisk\Model\TaskRisk:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/OccupationalRisk'
+                prefix: 'Preventool\Domain\OccupationalRisk\Model'
+                alias: Preventool\Domain\OccupationalRisk\Model\TaskRisk
+            Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/Mapping/OccupationalRisk'
+                prefix: 'Preventool\Domain\OccupationalRisk\Model'
+                alias: Preventool\Domain\OccupationalRisk\Model\TaskRiskAssessment
+
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

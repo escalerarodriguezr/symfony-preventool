@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="Preventool\Domain\Demo\Model\Demo" table="demo">
+        <id name="id" type="guid"/>
+        <field name="name" length="200" />
+
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+        <field name="deletedAt" type="datetime_immutable" nullable="true" />
+
+        <gedmo:soft-deleteable field-name="deletedAt"/>
+
+<!--        <unique-constraints>-->
+<!--            <unique-constraint name="U_demo_name" columns="name"/>-->
+<!--        </unique-constraints>-->
+
+        <indexes>
+            <index name="IDX_name" columns="name"/>
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>

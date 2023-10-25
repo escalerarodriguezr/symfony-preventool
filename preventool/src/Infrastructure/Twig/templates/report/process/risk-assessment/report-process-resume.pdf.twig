@@ -1,0 +1,91 @@
+{% extends 'report/shared/base.pdf.twig' %}
+
+
+{% block body %}
+    <div>
+        <h1 style="text-align: center">Informe de Proceso</h1>
+
+        {# DATOS DEL PROCESO #}
+        <h1 style="margin-top: 8mm;">Datos del Proceso</h1>
+        <div style="
+            margin-left: 10mm;
+        ">
+            <div><b>Nombre</b></div>
+            <div style="margin: 5mm;"
+            >{{ processName }}.</div>
+
+            <div><b>Descripcion</b></div>
+
+            {% if processDescription != null %}
+                <div style="margin: 5mm;"
+                >{{ processDescription | raw }}</div>
+            {% endif %}
+
+            {% if processDescription == null %}
+                <div style="margin: 5mm;"
+                >No aplica.</div>
+            {% endif %}
+
+        </div>
+
+        {# ACTIVIDADES DEL PROCESO #}
+        <h1 style="margin-top: 8mm;">Actividades del Proceso</h1>
+
+        {% if numberOfActivities == 0 %}
+            <div style="margin: 10mm;"
+            >El proceso no tiene actividades asignadas.</div>
+        {% endif %}
+
+        {% if numberOfActivities != 0 %}
+            <div style="margin-left: 10mm;">
+                <p>El proceso tiene un total de {{ numberOfActivities }} actividades asignada.</p>
+                <p>Las actividades son:</p>
+                <ul style="list-style-type: none">
+                    {% for activity in activities %}
+                        <li>{{ loop.index }}.-{{ activity.getName.value }}.</li>
+                    {% endfor %}
+                </ul>
+                <p>A continuación se describen cada una de las actividades del proceso.</p>
+
+                {% for activity in activities %}
+                    <h2>{{ activity.getName.value }}</h2>
+                        <div style="margin: 5mm">
+                            <h3>Descripción</h3>
+                            <div style="margin: 5mm;"
+                            >
+                                {% if activity.getDescription %}{{ activity.getDescription.decodeValue | raw }}{% else %}{{ "No aplica." }}{% endif %}
+                            </div>
+
+                        </div>
+
+                        <div style="margin-left: 5mm">
+                            <h3>Tareas</h3>
+                            {% set numberOfTasks = activity.getActivityTasks.count %}
+
+                            {% if numberOfTasks == 0 %}
+                                <div style="margin: 5mm;"
+                                >La actividad no tiene ninguna tarea asignada.</div>
+                            {% endif %}
+
+                            {% if numberOfTasks != 0 %}
+
+                                <div style="margin-left: 5mm;"
+                                >
+                                    <p>La tarea tiene asignadas un total de {{ numberOfTasks }} tareas.</p>
+                                    <p>Las tareas son:</p>
+                                    <ul style="list-style-type: none">
+                                        {% for task in activity.getActivityTasks %}
+                                            <li>{{ loop.index }}.-{{ task.getName.value }}.</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

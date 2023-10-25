@@ -1,0 +1,50 @@
+services:
+  # IdentityGenerator
+  Preventool\Infrastructure\Persistence\IdentityGenerator\UuidIdentityGenerator: ~
+  Preventool\Domain\Shared\Model\IdentityGenerator: '@Preventool\Infrastructure\Persistence\IdentityGenerator\UuidIdentityGenerator'
+
+  # Repositories
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Demo\DoctrineDemoRepository: ~
+  Preventool\Domain\Demo\Repository\DemoRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Demo\DoctrineDemoRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\User\DoctrineUserRepository: ~
+  Preventool\Domain\User\Repository\UserRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\User\DoctrineUserRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin\DoctrineAdminRepository: ~
+  Preventool\Domain\Admin\Repository\AdminRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Admin\DoctrineAdminRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineCompanyRepository: ~
+  Preventool\Domain\Company\Repository\CompanyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineCompanyRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Workplace\DoctrineWorkplaceRepository: ~
+  Preventool\Domain\Workplace\Repository\WorkplaceRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Workplace\DoctrineWorkplaceRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineHealthAndSafetyPolicyRepository: ~
+  Preventool\Domain\Company\Repository\HealthAndSafetyPolicyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Company\DoctrineHealthAndSafetyPolicyRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyRepository: ~
+  Preventool\Domain\BaselineStudy\Repository\BaselineStudyRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyComplianceRepository: ~
+  Preventool\Domain\BaselineStudy\Repository\BaselineStudyComplianceRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\BaselineStudy\DoctrineBaselineStudyComplianceRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessRepository: ~
+  Preventool\Domain\Process\Repository\ProcessRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessActivityRepository: ~
+  Preventool\Domain\Process\Repository\ProcessActivityRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\Process\DoctrineProcessActivityRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardCategoryRepository: ~
+  Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardCategoryRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardCategoryRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardRepository: ~
+  Preventool\Domain\WorkplaceHazard\Repository\WorkplaceHazardRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\WorkplaceHazard\DoctrineWorkplaceHazardRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskHazardRepository: ~
+  Preventool\Domain\OccupationalRisk\Repository\TaskHazardRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskHazardRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskRepository: ~
+  Preventool\Domain\OccupationalRisk\Repository\TaskRiskRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskRepository'
+
+  Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskAssessmentRepository: ~
+  Preventool\Domain\OccupationalRisk\Repository\TaskRiskAssessmentRepository: '@Preventool\Infrastructure\Persistence\Doctrine\Repository\OccupationalRisk\DoctrineTaskRiskAssessmentRepository'

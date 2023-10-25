@@ -1,0 +1,286 @@
+api_login_check:
+  path: /api/login_check
+
+#shared
+get_session:
+  path: /api/v1/session
+  controller: App\Controller\Shared\Session\GetSessionController
+  methods: [GET]
+get_company_session:
+  path: /api/v1/company-session/{id}
+  controller: App\Controller\Shared\Session\GetCompanySessionController
+  methods: [GET]
+get_workplace_session:
+  path: /api/v1/workplace-session/{id}
+  controller: App\Controller\Shared\Session\GetWorkplaceSessionController
+  methods: [GET]
+
+#Demo
+get_demo:
+  path: /api/v1/demo
+  controller: App\Controller\Demo\GetDemoController
+  methods: [GET]
+
+#Admin
+post_create_admin:
+  path: /api/v1/admin
+  controller: App\Controller\Admin\CreateAdminController
+  methods: [POST]
+search_admin:
+  path: /api/v1/admin
+  controller: App\Controller\Admin\SearchAdminController
+  methods: [GET]
+get_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\GetAdminByIdController
+  methods: [GET]
+put_update_admin:
+  path: /api/v1/admin/{id}
+  controller: App\Controller\Admin\UpdateAdminController
+  methods: [PUT]
+put_update_admin_password:
+  path: /api/v1/admin/{id}/password
+  controller: App\Controller\Admin\UpdateAdminPasswordController
+  methods: [PUT]
+put_activate_admin:
+  path: /api/v1/admin/{id}/activate
+  controller: App\Controller\Admin\ActivateAdminController
+  methods: [PUT]
+
+
+#Company
+post_create_company:
+  path: /api/v1/company
+  controller: App\Controller\Company\CreateCompanyController
+  methods: [POST]
+get_company:
+  path: /api/v1/company/{id}
+  controller: App\Controller\Company\GetCompanyByIdController
+  methods: [GET]
+search_company:
+  path: /api/v1/company
+  controller: App\Controller\Company\SearchCompanyController
+  methods: [GET]
+put_update_company:
+  path: /api/v1/company/{id}
+  controller: App\Controller\Company\UpdateCompanyController
+  methods: [PUT]
+delete_company:
+  path: /api/v1/company/{id}
+  controller: App\Controller\Company\DeleteCompanyController
+  methods: [DELETE]
+post_upload_health_and_safety_policy_document_of_company:
+  path: /api/v1/company/{id}/upload-health-and-safety-policy
+  controller: App\Controller\Company\UploadHealthAndSafetyPolicyController
+  methods: [POST]
+get_comany_health_and_safety_policy:
+  path: api/v1/company/{id}/health-and-safety-policy
+  controller: App\Controller\Company\GetHealthAndSafetyPolicyController
+  methods: [GET]
+get_comany_document_health_and_safety_policy:
+  path: api/v1/company/{id}/document-health-and-safety-policy
+  controller: App\Controller\Company\GetDocumentHealthAndSafetyPolicyController
+  methods: [GET]
+put_company_approve_health_and_safety_policy:
+  path: api/v1/company/{id}/approve-health-and-safety-policy
+  controller: App\Controller\Company\PutApproveHealthAndSafetyPolicyController
+  methods: [PUT]
+put_activate_company:
+  path: /api/v1/company/{id}/activate
+  controller: App\Controller\Company\ActivateCompanyController
+  methods: [PUT]
+
+
+
+#Workplace
+post_create_workplace:
+  path: api/v1/company/{companyId}/workplace
+  controller: App\Controller\Workplace\CreateWorkplaceController
+  methods: [POST]
+search_workplace:
+  path: /api/v1/workplace
+  controller: App\Controller\Workplace\SearchWorkplaceController
+  methods: [GET]
+get_company_workplace_by_id:
+  path: /api/v1/company/{companyId}/workplace/{workplaceId}
+  controller: App\Controller\Workplace\GetWorkplaceByIdController
+  methods: [GET]
+put_update_workplace:
+  path: /api/v1/company/{companyId}/workplace/{id}
+  controller: App\Controller\Workplace\UpdateWorkplaceController
+  methods: [PUT]
+delete_workplace:
+  path: /api/v1/company/{companyId}/workplace/{workplaceId}
+  controller: App\Controller\Workplace\DeleteWorkplaceController
+  methods: [DELETE]
+put_activate_workplace:
+  path: /api/v1/workplace/{id}/activate
+  controller: App\Controller\Workplace\ActivateWorkplaceController
+  methods: [PUT]
+get_workplace_dashboard:
+  path: /api/v1/workplace/{id}/dashboard
+  controller: App\Controller\Workplace\GetWorkplaceDashboardController
+  methods: [GET]
+
+#BaselineStudy
+get_base_line_study_indicators:
+  path: /api/v1/baseline-study-indicators
+  controller: App\Controller\BaselineStudy\GetBaselineStudyIndicatorsController
+  methods: [GET]
+get_workplace-baseline-study_indicators-by-category:
+  path: /api/v1/workplace-baseline-study-indicators-by-category/{workplaceId}/{category}
+  controller: App\Controller\BaselineStudy\GetWorkplaceBaselineStudyIndicatorsByCategoryController
+  methods: [GET]
+get_base_line_study_compliance_by_workplace:
+  path: /api/v1/baseline-study-compliance/{workplaceId}
+  controller: App\Controller\BaselineStudy\GetBaselineStudyComplianceByWorkplaceIdController
+  methods: [GET]
+put_update_baseline_study_indicator:
+  path: /api/v1/update-baseline-study-indicator/{workplaceId}/{indicator}
+  controller: App\Controller\BaselineStudy\UpdateBaselineStudyIndicatorController
+  methods: [PUT]
+
+#AuditType
+post_create_auditType:
+  path: /api/v1/audit-type
+  controller: App\Controller\AuditType\CreateAuditTypeController
+  methods: [POST]
+get_auditType:
+  path: /api/v1/audit-type/{id}
+  controller: App\Controller\AuditType\GetAuditTypeController
+  methods: [GET]
+search_auditType:
+  path: /api/v1/audit-type
+  controller: App\Controller\AuditType\SearchAuditTypeController
+  methods: [GET]
+
+#Process
+post_create_process:
+  path: /api/v1/workplace/{workplaceId}/process
+  controller: App\Controller\Process\CreateProcessController
+  methods: [POST]
+get_workplace_process_by_id:
+  path: /api/v1/workplace/{workplaceId}/process/{processId}
+  controller: App\Controller\Process\GetWorkplaceProcessByIdController
+  methods: [GET]
+search_process_by_id:
+  path: /api/v1/process
+  controller: App\Controller\Process\SearchProcessController
+  methods: [GET]
+update_process:
+  path: /api/v1/workplace/{workplaceId}/process/{processId}
+  controller: App\Controller\Process\UpdateProcessController
+  methods: [PUT]
+delete_process:
+  path: api/v1/workplace/{workplaceId}/process/{processId}
+  controller: App\Controller\Process\DeleteProcessController
+  methods: [DELETE]
+get_process_risk_assessment_report:
+  path: /api/v1/process/{processId}/{type}
+  controller: App\Controller\Process\GenerateProcessTaskRiskAssessmentReportController
+  methods: [GET]
+
+
+#ProcessActivity
+post_create_process_activity:
+  path: /api/v1/process/{processId}/activity
+  controller: App\Controller\Process\CreateProcessActivityController
+  methods: [POST]
+get_process_activity_by_id:
+  path: /api/v1/process-activity/{id}
+  controller: App\Controller\Process\GetProcessActivityByIdController
+  methods: [GET]
+search_process_activity:
+  path: /api/v1/process-activity
+  controller: App\Controller\Process\SearchProcessActivityController
+  methods: [GET]
+get_all_process_activity_by_process_id:
+  path: /api/v1/all-process-activity/{processId}
+  controller: App\Controller\Process\GetAllProcessActivityByProcessIdController
+  methods: [GET]
+put_update_process_activity_by_id:
+  path: /api/v1/process-activity/{id}
+  controller: App\Controller\Process\UpdateProcessActivityByIdController
+  methods: [PUT]
+delete_process_activity:
+  path: /api/v1/process-activity/{activityId}
+  controller: App\Controller\Process\DeleteProcessActivityController
+  methods: [DELETE]
+put_reorder_process_activities:
+  path: /api/v1/process/{processId}/reorder-activities
+  controller: App\Controller\Process\ReorderProcessActivitiesController
+  methods: [PUT]
+post_create_activity_task:
+  path: /api/v1/activity/{activityId}/task
+  controller: App\Controller\Process\CreateActivityTaskController
+  methods: [POST]
+delete_activity_task:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\DeleteActivityTaskController
+  methods: [DELETE]
+get_process_activity_task_by_id:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\GetActivityTaskByIdController
+  methods: [GET]
+get_all_process_activity_tasks_by_process_activity_id:
+  path: /api/v1/all-process-activity-tasks/{processActivityId}
+  controller: App\Controller\Process\GetAllProcessActivityTasksByProcessActivityIdController
+  methods: [GET]
+put_update_process_activity_task_controller:
+  path: /api/v1/activity-task/{taskId}
+  controller: App\Controller\Process\UpdateProcessActivityTaskController
+  methods: [PUT]
+put_reorder_process_activity_tasks:
+  path: /api/v1/process-activity/{processActivityId}/reorder-tasks
+  controller: App\Controller\Process\ReorderProcessActivityTasksController
+  methods: [PUT]
+
+#WorkplaceHazard
+get_search_workplace_hazard:
+  path: /api/v1/workplace/{workplaceId}/search-hazard
+  controller: App\Controller\WorkplaceHazard\SearchWorkplaceHazardController
+  methods: [GET]
+
+#TaskHazard
+post_create_task_hazard:
+  path: /api/v1/create-task-hazard
+  controller: App\Controller\OccupationalRisk\CreateTaskHazardController
+  methods: [POST]
+get_task_hazards:
+  path: /api/v1/task/{taskId}/hazards
+  controller: App\Controller\OccupationalRisk\GetTaskHazardsByTaskIdController
+  methods: [GET]
+delete_task_hazard:
+  path: /api/v1/task-hazard/{id}
+  controller: App\Controller\OccupationalRisk\DeleteTaskHazardByIdController
+  methods: [DELETE]
+
+#TaskRisk
+get_task_risk:
+  path: /api/v1/task-risk/{id}
+  controller: App\Controller\OccupationalRisk\GetTaskRiskByIdController
+  methods: [GET]
+put_update_task_risk:
+  path: /api/v1/task-risk/{id}
+  controller: App\Controller\OccupationalRisk\UpdateTaskRiskController
+  methods: [PUT]
+#TaskRiskAssessesment
+put_calculate_task_risk_assessment:
+  path: /api/v1/task-risk/{taskRiskId}/calculate-assessment
+  controller: App\Controller\OccupationalRisk\CalculateTaskRiskAssessmentController
+  methods: [PUT]
+get_task_risk_assessment_by_task_id:
+  path: /api/v1/task-risk/{taskRiskId}/task-risk-assessment
+  controller: App\Controller\OccupationalRisk\GetTaskRiskAssessmentByTaskRiskIdController
+  methods: [GET]
+put_update_task_risk_assessment_status:
+  path: /api/v1/task-risk-assessment/{taskRiskId}/update-status
+  controller: App\Controller\OccupationalRisk\UpdateTaskRiskAssessmentStatusController
+  methods: [PUT]
+
+
+
+
+
+
+

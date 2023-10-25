@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="Preventool\Domain\User\Model\User" table="user">
+        <id name="id" type="guid"/>
+        <field name="email" length="100" />
+        <field name="password" length="100" />
+        <field name="role" length="20" />
+
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+        <field name="deletedAt" type="datetime_immutable" nullable="true" />
+
+        <gedmo:soft-deleteable field-name="deletedAt"/>
+
+                <unique-constraints>
+                    <unique-constraint name="U_user_email" columns="email"/>
+                </unique-constraints>
+
+        <indexes>
+            <index name="IDX_user_email" columns="email"/>
+        </indexes>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>
